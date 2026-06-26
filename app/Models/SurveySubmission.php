@@ -59,4 +59,10 @@ class SurveySubmission extends Model
     {
         return $this->hasOne(EmploymentInformation::class, 'submission_id');
     }
+
+    public function workflowStatus(): BelongsTo
+    {
+        return $this->belongsTo(WorkflowStatus::class);
+    }
+    
 }

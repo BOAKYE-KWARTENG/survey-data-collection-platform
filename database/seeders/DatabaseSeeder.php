@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             GeographicSeeder::class,
             SurveyCampaignSeeder::class,
             EnumeratorUserSeeder::class,
+            WorkflowStatusSeeder::class,
         ]);
     }
 }
