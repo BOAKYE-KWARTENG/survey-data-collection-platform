@@ -2,3 +2,29 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+
+
+body.fi-body {
+    background: linear-gradient(135deg, #ffffff 0%, #BFD7EA 100%);
+}
+
+
+
+div.fi-topbar-ctn{
+
+    
+}
+
+/* body.fi-body {
+    background-image: url('/images/Background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+} */
+
+
+/* Customizes the brand text container inside the topbar */
+div.fi-topbar-ctn .fi-logo {
+    font-weight: 900;
+    letter-spacing: 0.05em;
+}

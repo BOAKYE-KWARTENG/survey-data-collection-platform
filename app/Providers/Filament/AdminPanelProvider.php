@@ -29,11 +29,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
+            ->brandName('BKWART')
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Indigo,
-                'primary' => Color::Blue,
+                // 'primary' => Color::Blue,
+                'primary' => "#0B3954",
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
