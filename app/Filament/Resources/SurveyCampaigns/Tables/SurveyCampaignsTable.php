@@ -10,6 +10,10 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+
+
 class SurveyCampaignsTable
 {
     public static function configure(Table $table): Table
@@ -29,7 +33,11 @@ class SurveyCampaignsTable
                     }),
                 TextColumn::make('start_date')->date()->sortable(),
                 TextColumn::make('end_date')->date()->sortable(),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable() // TAKE NOTE
+                    ,
             ])
             ->filters([])
             ->recordActions([
