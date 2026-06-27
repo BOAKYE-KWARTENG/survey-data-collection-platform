@@ -42,10 +42,24 @@ class SurveySubmissionsTable
                 TextColumn::make('enumerator.name')
                     ->label('Enumerator')
                     ->searchable(),
+                TextColumn::make('latestQaAssignment.qaOfficer.name')
+                    ->label('QA Officer')
+                    ->searchable()
+                    ->placeholder('Not Assigned'),
                 TextColumn::make('workflowStatus.name')
                     ->label('Status')
                     ->badge()
                     ->color(fn ($record) => $record?->workflowStatus?->color ?? 'gray'),
+                TextColumn::make('latestQaReview.decision')
+                    ->label('QA Decision')
+                    ->badge()
+                    ->color(fn ($state) => match ($state) {
+                        'approved'            => 'success',
+                        'rejected'            => 'danger',
+                        'needs_clarification' => 'warning',
+                        default               => 'gray',
+                    })
+                    ->placeholder('Pending'),
                 TextColumn::make('submitted_at')
                     ->label('Submitted At')
                     ->dateTime()

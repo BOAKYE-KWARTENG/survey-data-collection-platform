@@ -76,16 +76,25 @@ class SurveySubmissionResource extends Resource
                 'enumerator',
                 'workflowStatus',
                 'latestQaAssignment.qaOfficer',
+                'latestQaReview',
             ]);
 
         $user = auth()->user();
 
-        // Enumerator sees only their own submissions
-        if ($user->hasRole('enumerator')) {
-            return $query->where('enumerator_id', $user->id);
+        // Admin sees everything
+        if ($user->hasRole('admin')) {
+            return $query;
+        }
+
+        // Supervisor sees all submissions except draft
+        if ($user->hasRole('supervisor')) {
+            return $query->whereHas('workflowStatus', function ($q) {
+                $q->where('name', '!=', 'Draft');
+            });
         }
 
         // QA Officer sees only submissions assigned to them
+        // with a pending assignment status
         if ($user->hasRole('qa_officer')) {
             return $query->whereHas('latestQaAssignment', function ($q) use ($user) {
                 $q->where('qa_officer_id', $user->id)
@@ -93,7 +102,11 @@ class SurveySubmissionResource extends Resource
             });
         }
 
-        // Admin and Supervisor see everything
+        // Enumerator sees only their own submissions
+        if ($user->hasRole('enumerator')) {
+            return $query->where('enumerator_id', $user->id);
+        }
+
         return $query;
     }
 
