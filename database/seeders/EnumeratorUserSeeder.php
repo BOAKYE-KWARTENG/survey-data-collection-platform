@@ -42,5 +42,23 @@ class EnumeratorUserSeeder extends Seeder
             ]
         );
         $supervisor->assignRole('supervisor');
+
+
+        // QA Officers
+        $qaOfficers = [
+            ['name' => 'Abena Osei',   'email' => 'abena@survey.com'],
+            ['name' => 'Kweku Adjei',  'email' => 'kweku@survey.com'],
+        ];
+
+        foreach ($qaOfficers as $data) {
+            $user = User::firstOrCreate(
+                ['email' => $data['email']],
+                [
+                    'name'     => $data['name'],
+                    'password' => Hash::make('password'),
+                ]
+            );
+            $user->assignRole('qa_officer');
+        }
     }
 }

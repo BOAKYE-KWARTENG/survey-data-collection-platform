@@ -11,6 +11,12 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
+use App\Filament\Actions\QaReviewAction;
+use App\Filament\Actions\TransitionStatusAction;
+use App\Filament\Actions\AssignToQaAction;
+use App\Filament\Actions\ResubmitAction;
+
+
 class SurveySubmissionsTable
 {
     public static function configure(Table $table): Table
@@ -25,46 +31,40 @@ class SurveySubmissionsTable
                     ->label('Campaign')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('household.district.name')
+                    ->label('District')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('household.district.region.name')
+                    ->label('Region')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('enumerator.name')
                     ->label('Enumerator')
                     ->searchable(),
-                TextColumn::make('status')
+                TextColumn::make('workflowStatus.name')
+                    ->label('Status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'draft'     => 'gray',
-                        'submitted' => 'success',
-                        default     => 'gray',
-                    }),
+                    ->color(fn ($record) => $record?->workflowStatus?->color ?? 'gray'),
                 TextColumn::make('submitted_at')
+                    ->label('Submitted At')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'draft'     => 'Draft',
-                        'submitted' => 'Submitted',
-                    ]),
-
+                SelectFilter::make('workflow_status_id')
+                    ->label('Status')
+                    ->relationship('workflowStatus', 'name'),
                 SelectFilter::make('campaign_id')
                     ->label('Campaign')
                     ->relationship('campaign', 'name'),
-
-                SelectFilter::make('district')
-                    ->label('District')
-                    ->relationship('household.district', 'name'),
             ])
             ->recordActions([
-
                 ViewAction::make(),
-                EditAction::make(),
+                AssignToQaAction::make(),
+                QaReviewAction::make(),
+                ResubmitAction::make(),
                 DeleteAction::make(),
-
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

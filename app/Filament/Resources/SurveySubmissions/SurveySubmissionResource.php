@@ -74,14 +74,26 @@ class SurveySubmissionResource extends Resource
                 'household.district.region',
                 'campaign',
                 'enumerator',
+                'workflowStatus',
+                'latestQaAssignment.qaOfficer',
             ]);
 
         $user = auth()->user();
 
+        // Enumerator sees only their own submissions
         if ($user->hasRole('enumerator')) {
             return $query->where('enumerator_id', $user->id);
         }
 
+        // QA Officer sees only submissions assigned to them
+        if ($user->hasRole('qa_officer')) {
+            return $query->whereHas('latestQaAssignment', function ($q) use ($user) {
+                $q->where('qa_officer_id', $user->id)
+                ->where('status', 'pending');
+            });
+        }
+
+        // Admin and Supervisor see everything
         return $query;
     }
 
@@ -159,6 +171,30 @@ class SurveySubmissionResource extends Resource
                         TextEntry::make('employmentInformation.employment_sector')->label('Employment Sector'),
                         TextEntry::make('employmentInformation.monthly_income_range')->label('Monthly Income Range'),
                         TextEntry::make('employmentInformation.financial_confidence')->label('Financial Confidence'),
+                    ])->columns(2),
+
+
+                Section::make('QA History')
+                    ->schema([
+                        TextEntry::make('latestQaAssignment.qaOfficer.name')
+                            ->label('Assigned QA Officer'),
+                        TextEntry::make('latestQaAssignment.assigned_at')
+                            ->label('Assigned At')
+                            ->dateTime(),
+                        TextEntry::make('latestQaReview.decision')
+                            ->label('Last Decision')
+                            ->badge()
+                            ->color(fn ($state) => match ($state) {
+                                'approved'            => 'success',
+                                'rejected'            => 'danger',
+                                'needs_clarification' => 'warning',
+                                default               => 'gray',
+                            }),
+                        TextEntry::make('latestQaReview.comments')
+                            ->label('QA Comments'),
+                        TextEntry::make('latestQaReview.reviewed_at')
+                            ->label('Reviewed At')
+                            ->dateTime(),
                     ])->columns(2),
             ]);
     }

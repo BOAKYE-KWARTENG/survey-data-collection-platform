@@ -19,7 +19,8 @@ class CommunitiesTable
                 TextColumn::make('district.name')->label('District')->searchable()->sortable(),
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('code')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('created_at')->dateTime()->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([])
             ->recordActions([

@@ -20,7 +20,10 @@ class RegionsTable
                 TextColumn::make('districts_count')
                     ->counts('districts')
                     ->label('Districts'),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([])
             ->recordActions([

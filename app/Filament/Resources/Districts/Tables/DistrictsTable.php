@@ -21,7 +21,8 @@ class DistrictsTable
                 TextColumn::make('communities_count')
                     ->counts('communities')
                     ->label('Communities'),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('created_at')->dateTime()->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([])
             ->recordActions([
