@@ -50,7 +50,9 @@ class AdminPanelProvider extends PanelProvider
                 FilamentInfoWidget::class, */
                 \App\Filament\Widgets\SupervisorStatsOverview::class,
                 \App\Filament\Widgets\EnumeratorStatsOverview::class,
+                \App\Filament\Widgets\QaOfficerStatsOverview::class,
                 \App\Filament\Widgets\SubmissionsByDistrictTable::class,
+                
 
             ])
             ->middleware([
