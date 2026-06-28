@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SurveyCampaignSeeder::class,
             EnumeratorUserSeeder::class,
             WorkflowStatusSeeder::class,
+            ReportTemplateSeeder::class,
         ]);
     }
 }

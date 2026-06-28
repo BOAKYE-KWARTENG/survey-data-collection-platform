@@ -12,6 +12,9 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -42,4 +45,26 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasRole(['admin', 'supervisor', 'enumerator', 'qa_officer']);
     }
+
+    public function households(): HasMany
+    {
+        return $this->hasMany(Household::class, 'registered_by');
+    }
+
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(SurveySubmission::class, 'enumerator_id');
+    }
+
+
+    public function qaAssignments(): HasMany
+    {
+        return $this->hasMany(QaAssignment::class, 'qa_officer_id');
+    }
+
+    public function qaReviews(): HasMany
+    {
+        return $this->hasMany(QaReview::class, 'qa_officer_id');
+    }
+
 }
