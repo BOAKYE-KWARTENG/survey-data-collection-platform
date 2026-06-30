@@ -58,4 +58,11 @@ class AnalyticsDashboard extends Page implements HasForms
             ->regionalCoverage();
     }
 
+
+    public function getSubmissionTrendData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->submissionTrend();
+    }
+
 }

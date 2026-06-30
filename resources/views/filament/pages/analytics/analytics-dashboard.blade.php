@@ -36,4 +36,32 @@
         />
     </x-filament::section>
 
+    {{-- Submission Trend Chart --}}
+    @php
+        $trendData = $this->getSubmissionTrendData();
+    @endphp
+
+    <x-filament::section heading="Submission Trend — Last 30 Days">
+        <x-analytics.chart
+            chartId="submissionTrendChart"
+            type="line"
+            :labels="$trendData['labels']"
+            :datasets="[
+                [
+                    'label'           => 'Submissions',
+                    'data'            => $trendData['counts'],
+                    'backgroundColor' => 'rgba(139, 92, 246, 0.1)',
+                    'borderColor'     => 'rgba(139, 92, 246, 1)',
+                    'borderWidth'     => 2,
+                    'fill'            => true,
+                    'tension'         => 0.4,
+                    'pointBackgroundColor' => 'rgba(139, 92, 246, 1)',
+                    'pointRadius'     => 3,
+                ],
+            ]"
+            title="Daily Submissions Over Last 30 Days"
+            height="300px"
+        />
+    </x-filament::section>
+
 </x-filament-panels::page>
