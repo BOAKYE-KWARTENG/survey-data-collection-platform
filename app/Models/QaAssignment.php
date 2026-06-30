@@ -6,8 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
+
 class QaAssignment extends Model
 {
+
+    use LogsActivity;
+    
     protected $fillable = [
         'submission_id',
         'qa_officer_id',
@@ -19,6 +27,17 @@ class QaAssignment extends Model
     protected $casts = [
         'assigned_at' => 'datetime',
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['submission_id', 'qa_officer_id', 'status'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn (string $eventName) => "QA Assignment {$eventName}");
+    }
+
 
     public function submission(): BelongsTo
     {

@@ -5,8 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
 class QaReview extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'submission_id',
         'qa_assignment_id',
@@ -24,6 +29,18 @@ class QaReview extends Model
     const APPROVED           = 'approved';
     const REJECTED           = 'rejected';
     const NEEDS_CLARIFICATION = 'needs_clarification';
+    
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['decision', 'comments'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn (string $eventName) => "QA Review {$eventName}");
+    }
+
+
 
     public function submission(): BelongsTo
     {

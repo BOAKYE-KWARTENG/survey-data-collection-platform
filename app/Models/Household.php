@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Spatie\Activitylog\LogOptions;
+
+
 class Household extends Model
 {
+
+
     protected $fillable = [
         'campaign_id',
         'district_id',
@@ -17,6 +22,19 @@ class Household extends Model
         'gps_longitude',
         'registered_by',
     ];
+
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['household_code', 'district_id', 'community_id'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn (string $eventName) => "Household {$eventName}");
+    }
+
+
 
     public function campaign(): BelongsTo
     {

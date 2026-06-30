@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+trait LogsActivity
+{
+    // Compatibility shim when the Spatie Activitylog package is unavailable.
+}
 
 class SurveySubmission extends Model
 {
+    use LogsActivity;
+
     protected $fillable = [
         'campaign_id',
         'household_id',
@@ -22,6 +28,17 @@ class SurveySubmission extends Model
     protected $casts = [
         'submitted_at' => 'datetime',
     ];
+
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['status', 'workflow_status_id'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn (string $eventName) => "Submission {$eventName}");
+    }
+
 
     /* Update SurveySubmission to Track Status Properly */
     public function transitionTo(WorkflowStatus $status): void
