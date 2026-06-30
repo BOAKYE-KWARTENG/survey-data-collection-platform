@@ -52,6 +52,7 @@ class AnalyticsDashboard extends Page implements HasForms
         ];
     }
 
+    
     public function getRegionalCoverageData(): array
     {
         return (new AnalyticsService($this->campaign_id))
@@ -64,5 +65,13 @@ class AnalyticsDashboard extends Page implements HasForms
         return (new AnalyticsService($this->campaign_id))
             ->submissionTrend();
     }
+
+
+    public function getFinancialInclusionData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->financialInclusionIndex();
+    }
+
 
 }
