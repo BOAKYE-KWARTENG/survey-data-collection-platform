@@ -9,6 +9,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
+use App\Services\Analytics\AnalyticsService;
 
 class AnalyticsDashboard extends Page implements HasForms
 {
@@ -50,4 +51,11 @@ class AnalyticsDashboard extends Page implements HasForms
                 ->live(),
         ];
     }
+
+    public function getRegionalCoverageData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->regionalCoverage();
+    }
+
 }
