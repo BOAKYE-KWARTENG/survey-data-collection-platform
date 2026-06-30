@@ -87,10 +87,25 @@ class AnalyticsDashboard extends Page implements HasForms
             ->incomeDistribution();
     }
 
-    
+
     public function getGenderData(): array
     {
         return (new AnalyticsService($this->campaign_id))
             ->genderBreakdown();
     }
+
+
+    public function getDigitalAccessData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->digitalAccessBreakdown();
+    }
+
+
+    public function getDigitalSkillsData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->digitalSkillsBreakdown();
+    }
+
 }

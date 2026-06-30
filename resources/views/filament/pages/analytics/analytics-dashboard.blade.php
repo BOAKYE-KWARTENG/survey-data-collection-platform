@@ -290,4 +290,91 @@
 
         </div>
     </x-filament::section>
+
+    {{-- Digital Access Chart --}}
+    @php
+        $digitalData = $this->getDigitalAccessData();
+        $skillsData  = $this->getDigitalSkillsData();
+        $totalSkills = array_sum($skillsData) ?: 1;
+    @endphp
+
+    <x-filament::section heading="Digital Access & Skills">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Radar Chart --}}
+            <x-analytics.chart
+                chartId="digitalAccessChart"
+                type="radar"
+                :labels="$digitalData['labels']"
+                :datasets="[
+                    [
+                        'label'                => 'Access Rate (%)',
+                        'data'                 => $digitalData['rates'],
+                        'backgroundColor'      => 'rgba(139, 92, 246, 0.2)',
+                        'borderColor'          => 'rgba(139, 92, 246, 1)',
+                        'borderWidth'          => 2,
+                        'pointBackgroundColor' => 'rgba(139, 92, 246, 1)',
+                        'pointRadius'          => 4,
+                    ],
+                ]"
+                title="Digital Access Rates (%)"
+                height="350px"
+            />
+
+            {{-- Digital Skills Breakdown --}}
+            <div>
+                <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                    Digital Skills Breakdown
+                </h3>
+
+                @forelse ($skillsData as $skill => $count)
+                    @php
+                        $percentage = round(($count / $totalSkills) * 100, 1);
+                        $colors = [
+                            'bg-purple-500',
+                            'bg-blue-500',
+                            'bg-green-500',
+                            'bg-yellow-500',
+                            'bg-red-500',
+                        ];
+                        $colorIndex = array_search($skill, array_keys($skillsData)) % 5;
+                    @endphp
+
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">
+                                {{ $skill }}
+                            </span>
+                            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                {{ $count }} ({{ $percentage }}%)
+                            </span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div
+                                class="h-2.5 rounded-full {{ $colors[$colorIndex] }}"
+                                style="width: {{ $percentage }}%">
+                            </div>
+                        </div>
+                    </div>
+
+                @empty
+                    <p class="text-gray-400 text-sm">No digital skills data available.</p>
+                @endforelse
+
+                {{-- Digital Access Rate Cards --}}
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    @foreach ($digitalData['labels'] as $index => $label)
+                        <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border dark:border-gray-700 text-center">
+                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ $label }}</p>
+                            <p class="text-xl font-bold text-purple-600 mt-1">
+                                {{ $digitalData['rates'][$index] }}%
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+
+        </div>
+    </x-filament::section>
 </x-filament-panels::page>

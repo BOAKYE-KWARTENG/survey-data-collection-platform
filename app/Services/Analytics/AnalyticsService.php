@@ -200,4 +200,40 @@ class AnalyticsService
             'counts' => collect($labels)->keys()->map(fn($k) => $data[$k] ?? 0)->toArray(),
         ];
     }
+
+
+    public function digitalSkillsBreakdown(): array
+    {
+        $submissionIds = $this->approvedSubmissions()->pluck('id');
+
+        $results = [];
+        $records = DigitalAccess::whereIn('submission_id', $submissionIds)
+            ->whereNotNull('digital_skills')
+            ->pluck('digital_skills');
+
+        foreach ($records as $skills) {
+            if (is_array($skills)) {
+                foreach ($skills as $skill) {
+                    $results[$skill] = ($results[$skill] ?? 0) + 1;
+                }
+            }
+        }
+
+        arsort($results);
+
+        $labels = [
+            'send_sms'        => 'Send SMS',
+            'use_whatsapp'    => 'Use WhatsApp',
+            'send_email'      => 'Send Email',
+            'download_apps'   => 'Download Apps',
+            'online_payments' => 'Make Online Payments',
+        ];
+
+        $mapped = [];
+        foreach ($results as $key => $count) {
+            $mapped[$labels[$key] ?? $key] = $count;
+        }
+
+        return $mapped;
+    }
 }
