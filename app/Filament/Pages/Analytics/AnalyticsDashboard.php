@@ -73,7 +73,7 @@ class AnalyticsDashboard extends Page implements HasForms
             ->financialInclusionIndex();
     }
 
-    
+
     public function getEmploymentData(): array
     {
         return (new AnalyticsService($this->campaign_id))
@@ -87,5 +87,10 @@ class AnalyticsDashboard extends Page implements HasForms
             ->incomeDistribution();
     }
 
-
+    
+    public function getGenderData(): array
+    {
+        return (new AnalyticsService($this->campaign_id))
+            ->genderBreakdown();
+    }
 }

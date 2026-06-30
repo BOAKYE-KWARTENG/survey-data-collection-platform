@@ -202,4 +202,92 @@
         </div>
     </x-filament::section>
     
+
+    {{-- Gender Breakdown --}}
+    @php
+        $genderData  = $this->getGenderData();
+        $totalGender = array_sum($genderData['counts']);
+    @endphp
+
+    <x-filament::section heading="Gender Breakdown">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Doughnut Chart --}}
+            <x-analytics.chart
+                chartId="genderBreakdownChart"
+                type="doughnut"
+                :labels="$genderData['labels']"
+                :datasets="[
+                    [
+                        'label'           => 'Gender',
+                        'data'            => $genderData['counts'],
+                        'backgroundColor' => [
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(244, 114, 182, 0.8)',
+                            'rgba(156, 163, 175, 0.8)',
+                        ],
+                        'borderColor' => '#ffffff',
+                        'borderWidth' => 2,
+                    ],
+                ]"
+                title="Gender Distribution"
+                height="300px"
+            />
+
+            {{-- Summary Cards --}}
+            <div class="flex flex-col justify-center gap-4">
+
+                @foreach ($genderData['labels'] as $index => $label)
+                    @php
+                        $count      = $genderData['counts'][$index];
+                        $percentage = $totalGender > 0
+                            ? round(($count / $totalGender) * 100, 1)
+                            : 0;
+                        $colors = [
+                            'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800',
+                            'bg-pink-50 border-pink-200 dark:bg-pink-900/20 dark:border-pink-800',
+                            'bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700',
+                        ];
+                        $textColors = [
+                            'text-blue-600',
+                            'text-pink-500',
+                            'text-gray-500',
+                        ];
+                    @endphp
+
+                    <div class="flex items-center justify-between p-4 rounded-lg border {{ $colors[$index % 3] }}">
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ $label }}</p>
+                            <p class="text-2xl font-bold {{ $textColors[$index % 3] }}">
+                                {{ number_format($count) }}
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-3xl font-bold {{ $textColors[$index % 3] }}">
+                                {{ $percentage }}%
+                            </p>
+                            <p class="text-xs text-gray-400">of total</p>
+                        </div>
+                    </div>
+
+                @endforeach
+
+                {{-- Total --}}
+                <div class="flex items-center justify-between p-4 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Respondents</p>
+                        <p class="text-2xl font-bold text-gray-700 dark:text-gray-200">
+                            {{ number_format($totalGender) }}
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-gray-700 dark:text-gray-200">100%</p>
+                        <p class="text-xs text-gray-400">all genders</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </x-filament::section>
 </x-filament-panels::page>
