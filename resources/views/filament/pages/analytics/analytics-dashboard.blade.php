@@ -127,5 +127,79 @@
 
         </div>
     </x-filament::section>
+
+
+    {{-- Employment Statistics --}}
+    @php
+        $employmentData = $this->getEmploymentData();
+        $incomeData     = $this->getIncomeData();
+    @endphp
+
+    <x-filament::section heading="Employment & Income Statistics">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Employment Status Doughnut --}}
+            <div>
+                <x-analytics.chart
+                    chartId="employmentStatusChart"
+                    type="doughnut"
+                    :labels="$employmentData['labels']"
+                    :datasets="[
+                        [
+                            'label'           => 'Employment Status',
+                            'data'            => $employmentData['counts'],
+                            'backgroundColor' => [
+                                'rgba(59, 130, 246, 0.8)',
+                                'rgba(16, 185, 129, 0.8)',
+                                'rgba(239, 68, 68, 0.8)',
+                                'rgba(245, 158, 11, 0.8)',
+                                'rgba(139, 92, 246, 0.8)',
+                            ],
+                            'borderColor' => '#ffffff',
+                            'borderWidth' => 2,
+                        ],
+                    ]"
+                    title="Employment Status Distribution"
+                    height="300px"
+                />
+
+                {{-- Legend --}}
+                <div class="mt-4 grid grid-cols-2 gap-2">
+                    @foreach ($employmentData['labels'] as $index => $label)
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full inline-block flex-shrink-0"
+                                style="background-color: {{ ['#3b82f6','#10b981','#ef4444','#f59e0b','#8b5cf6'][$index % 5] }}">
+                            </span>
+                            <span class="text-xs text-gray-600 dark:text-gray-400">
+                                {{ $label }}:
+                                <strong>{{ $employmentData['counts'][$index] }}</strong>
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Income Distribution Bar --}}
+            <div>
+                <x-analytics.chart
+                    chartId="incomeDistributionChart"
+                    type="bar"
+                    :labels="$incomeData['labels']"
+                    :datasets="[
+                        [
+                            'label'           => 'Number of Respondents',
+                            'data'            => $incomeData['counts'],
+                            'backgroundColor' => 'rgba(16, 185, 129, 0.7)',
+                            'borderColor'     => 'rgba(16, 185, 129, 1)',
+                            'borderWidth'     => 1,
+                        ],
+                    ]"
+                    title="Monthly Income Distribution"
+                    height="300px"
+                />
+            </div>
+
+        </div>
+    </x-filament::section>
     
 </x-filament-panels::page>
