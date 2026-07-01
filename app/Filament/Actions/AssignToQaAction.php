@@ -9,6 +9,8 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 
+use App\Events\SubmissionAssignedToQa;
+
 class AssignToQaAction
 {
     public static function make(): Action
@@ -45,6 +47,10 @@ class AssignToQaAction
                 if ($status) {
                     $record->transitionTo($status);
                 }
+
+                // Inside the action() callback after QaAssignment::create()
+                event(new SubmissionAssignedToQa($assignment));
+
             })
             ->visible(function ($record): bool {
                 $user = auth()->user();

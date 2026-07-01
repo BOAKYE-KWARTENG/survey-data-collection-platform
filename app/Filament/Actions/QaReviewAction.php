@@ -8,6 +8,11 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 
+
+use App\Events\SubmissionReviewed;
+use App\Events\SubmissionApproved;
+
+
 class QaReviewAction
 {
     public static function make(): Action
@@ -59,6 +64,14 @@ class QaReviewAction
                 if ($status) {
                     $record->transitionTo($status);
                 }
+
+                // Inside the action() callback after QaReview::create()
+                event(new SubmissionReviewed($review));
+
+                if ($data['decision'] === QaReview::APPROVED) {
+                    event(new SubmissionApproved($record));
+                }
+
             })
             ->visible(function ($record): bool {
                 $user = auth()->user();
