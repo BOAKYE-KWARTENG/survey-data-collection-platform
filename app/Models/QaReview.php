@@ -10,7 +10,8 @@ use Spatie\Activitylog\LogOptions;
 
 class QaReview extends Model
 {
-    use LogsActivity;
+    // Activity logging trait removed to avoid fatal when the package/trait is not available.
+    // If Spatie activitylog is installed, re-add: use LogsActivity;
 
     protected $fillable = [
         'submission_id',

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             EnumeratorUserSeeder::class,
             WorkflowStatusSeeder::class,
             ReportTemplateSeeder::class,
+            PermissionSeeder::class,
         ]);
     }
 }
