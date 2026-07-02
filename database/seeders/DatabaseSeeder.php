@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             AdminUserSeeder::class,
             GeographicSeeder::class,
+            CommunitySeeder::class, // Ensure CommunitySeeder is called after GeographicSeeder
             SurveyCampaignSeeder::class,
             EnumeratorUserSeeder::class,
             WorkflowStatusSeeder::class,

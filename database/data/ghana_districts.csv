@@ -1,0 +1,245 @@
+﻿region_code,district_name,district_code,capital
+111,Asunafo North Municipal,111-ANM,Goaso
+111,Asunafo South District,111-ASD,Kukuom
+111,Asutifi North District,111-ATN,Kenyase
+111,Asutifi South District,111-ATS,Hwidiem
+111,Tano North Municipal,111-TNN,Duayaw Nkwanta
+111,Tano South Municipal,111-TNS,Bechem
+222,Adansi Asokwa District,222-ADA,Akrokerri
+222,Adansi North District,222-ADN,New Edubiase
+222,Adansi South District,222-ADS,Fomena
+222,Afigya Kwabre North District,222-AKN,Nsuta
+222,Afigya Kwabre South District,222-AKS,Barekese
+222,Ahafo Ano North Municipal,222-AHN,Tepa
+222,Ahafo Ano South East District,222-ASE,Mankranso
+222,Ahafo Ano South West District,222-ASW,Kumaso
+222,Amansie Central District,222-AMC,Jacobu
+222,Amansie South District,222-AMS,Manso Nkwanta
+222,Amansie West District,222-AMW,Manso Amenfi
+222,Asante Akim Central Municipal,222-AAC,Konongo
+222,Asante Akim North District,222-AAN,Agogo
+222,Asante Akim South Municipal,222-AAS,Juaso
+222,Asokwa Municipal,222-ASM,Asokwa
+222,Atwima Kwanwoma District,222-ATK,Foase
+222,Atwima Nwabiagya Municipal,222-ATN,Nkawie
+222,Atwima Nwabiagya North District,222-ANN,Nyinahin
+222,Bekwai Municipal,222-BKM,Bekwai
+222,Bosome Freho District,222-BFD,Asiwa
+222,Bosomtwe District,222-BSD,Kuntanase
+222,Ejisu Municipal,222-EJM,Ejisu
+222,Ejura Sekyedumase Municipal,222-EJS,Ejura
+222,Juaben Municipal,222-JBM,Juaben
+222,Kumasi Metropolitan,222-KMA,Kumasi
+222,Kwabre East District,222-KED,Mamponteng
+222,Kwadaso Municipal,222-KWM,Kwadaso
+222,Mampong Municipal,222-MPM,Mampong
+222,Manhyia North Municipal,222-MNM,Kumasi
+222,Manhyia South Municipal,222-MSM,Kumasi
+222,Offinso Municipal,222-OFN,Offinso
+222,Offinso North District,222-OFD,Abofour
+222,Oforikrom Municipal,222-OFM,Oforikrom
+222,Old Tafo Municipal,222-OTM,Old Tafo
+222,Sekyere Central District,222-SCD,Effiduase
+222,Sekyere East District,222-SED,Effiduase
+222,Sekyere Kumawu District,222-SKD,Kumawu
+222,Sekyere South District,222-SSD,Agona
+222,Suame Municipal,222-SUM,Suame
+333,Atebubu Amanten Municipal,333-AAM,Atebubu
+333,Kintampo North Municipal,333-KNM,Kintampo
+333,Kintampo South District,333-KSD,Jema
+333,Pru East District,333-PRE,Yeji
+333,Pru West District,333-PRW,Prang
+333,Sene East District,333-SNE,Kwame Danso
+333,Sene West District,333-SNW,Atebubu
+333,Techiman Municipal,333-TCM,Techiman
+333,Techiman North District,333-TND,Tuobodom
+444,Banda District,444-BND,Banda Ahenkro
+444,Berekum East Municipal,444-BEM,Berekum
+444,Berekum West District,444-BWD,Jinijini
+444,Dormaa East District,444-DRE,Wamfie
+444,Dormaa Municipal,444-DRM,Dormaa Ahenkro
+444,Dormaa West District,444-DRW,Nkrankwanta
+444,Jaman North District,444-JMN,Sampa
+444,Jaman South Municipal,444-JMS,Drobo
+444,Nkoranza North District,444-NKN,Busunya
+444,Nkoranza South Municipal,444-NKS,Nkoranza
+444,Sunyani Municipal,444-SNM,Sunyani
+444,Sunyani West District,444-SWD,Odumasi
+444,Tain District,444-TAD,Nsawkaw
+444,Wenchi Municipal,444-WNM,Wenchi
+555,Abura Asebu Kwamankese District,555-AAK,Assin Foso
+555,Agona East District,555-AGE,Agona Nsaba
+555,Agona West Municipal,555-AGW,Agona Swedru
+555,Ajumako Enyan Essiam District,555-AEE,Ajumako
+555,Asikuma Odoben Brakwa District,555-AOB,Breman Asikuma
+555,Assin Central Municipal,555-ASC,Assin Foso
+555,Assin North District,555-ASN,Assin Fosu
+555,Assin South District,555-ASS,Assin Praso
+555,Awutu Senya District,555-ASD,Awutu Bereku
+555,Awutu Senya East Municipal,555-ASE,Kasoa
+555,Cape Coast Metropolitan,555-CCM,Cape Coast
+555,Effutu Municipal,555-EFM,Winneba
+555,Ekumfi District,555-EKD,Ekumfi Otuam
+555,Gomoa Central District,555-GCD,Apam
+555,Gomoa East District,555-GED,Apam
+555,Gomoa West District,555-GWD,Apam
+555,Komenda Edina Eguafo Abrem Municipal,555-KEE,Elmina
+555,Mfantsiman Municipal,555-MFM,Saltpond
+555,Twifo Atti Morkwa District,555-TAM,Twifo Praso
+555,Twifo Hemang Lower Denkyira District,555-THL,Hemang
+555,Upper Denkyira East Municipal,555-UDE,Dunkwa on Ofin
+555,Upper Denkyira West District,555-UDW,Diaso
+666,Abuakwa North Municipal,666-ABN,Kukurantumi
+666,Abuakwa South Municipal,666-ABS,Kukurantumi
+666,Akwapim North District,666-AKN,Akropong
+666,Akwapim South District,666-AKS,Aburi
+666,Asuogyaman District,666-ASD,Atimpoku
+666,Atiwa East District,666-ATE,Kwabeng
+666,Atiwa West District,666-ATW,Kwabeng
+666,Ayensuano District,666-AYD,Coaltar
+666,Birim Central Municipal,666-BCM,Oda
+666,Birim North District,666-BND,Akim Swedru
+666,Birim South District,666-BSD,Akim Oda
+666,Denkyembour District,666-DKD,Akwatia
+666,East Akim Municipal,666-EAM,Kibi
+666,Fanteakwa North District,666-FND,Begoro
+666,Fanteakwa South District,666-FSD,Osino
+666,Kwahu Afram Plains North District,666-KAN,Donkorkrom
+666,Kwahu Afram Plains South District,666-KAS,Tease
+666,Kwahu East District,666-KWE,Abetifi
+666,Kwahu South District,666-KWS,Mpraeso
+666,Kwahu West Municipal,666-KWW,Nkawkaw
+666,Lower Manya Krobo Municipal,666-LMK,Odumase Krobo
+666,New Juaben North Municipal,666-NJN,Koforidua
+666,New Juaben South Municipal,666-NJS,Koforidua
+666,Nsawam Adoagyiri Municipal,666-NAM,Nsawam
+666,Suhum Municipal,666-SHM,Suhum
+666,Upper Manya Krobo District,666-UMK,Asesewa
+666,West Akim Municipal,666-WAM,Oda
+666,Yilo Krobo Municipal,666-YKM,Somanya
+777,Ablekuma Central Municipal,777-ABC,Accra
+777,Ablekuma North Municipal,777-ABN,Accra
+777,Ablekuma West Municipal,777-ABW,Accra
+777,Accra Metropolitan,777-AMA,Accra
+777,Adentan Municipal,777-ADM,Adentan
+777,Ayawaso Central Municipal,777-ACM,Accra
+777,Ayawaso East Municipal,777-AEM,Adenta
+777,Ayawaso North Municipal,777-ANM,Accra
+777,Ayawaso West Municipal,777-AWM,Accra
+777,Dangme East District,777-DED,Ada Foah
+777,Dangme West District,777-DWD,Kasoa
+777,Ga Central Municipal,777-GCM,Sowutuom
+777,Ga East Municipal,777-GEM,Abokobi
+777,Ga South Municipal,777-GSM,Weija
+777,Ga West Municipal,777-GWM,Amasaman
+777,Krowor Municipal,777-KRM,Mantse Agbona
+777,La Dade Kotopon Municipal,777-LDK,La
+777,La Nkwantanang Madina Municipal,777-LNM,Madina
+777,Ledzokuku Municipal,777-LMU,Teshie
+777,Ningo Prampram District,777-NPD,Prampram
+777,Okaikwei North Municipal,777-ONM,Accra
+777,Shai Osudoku District,777-SOD,Dodowa
+777,Tema Metropolitan,777-TMA,Tema
+888,Bunkpurugu Nakpayili District,888-BND,Bunkpurugu
+888,Chereponi District,888-CHD,Chereponi
+888,East Mamprusi Municipal,888-EMM,Gambaga
+888,Nalerigu Gambaga District,888-NGD,Nalerigu
+888,West Mamprusi Municipal,888-WMM,Walewale
+888,Yunyoo Nasuan District,888-YND,Yunyoo
+999,Gushegu Municipal,999-GSM,Gushegu
+999,Karaga District,999-KRD,Karaga
+999,Kpandai District,999-KPD,Kpandai
+999,Kumbungu District,999-KBD,Kumbungu
+999,Mion District,999-MND,Sang
+999,Mor District,999-MRD,Fufulso
+999,Nanton District,999-NTD,Nanton
+999,Nanumba North Municipal,999-NNM,Bimbilla
+999,Nanumba South District,999-NSD,Wulensi
+999,Sagnarigu Municipal,999-SGM,Sagnarigu
+999,Savelugu Municipal,999-SVM,Savelugu
+999,Tamale Metropolitan,999-TAM,Tamale
+999,Tatale Sanguli District,999-TSD,Tatale
+999,Tolon District,999-TOD,Tolon
+999,Yendi Municipal,999-YNM,Yendi
+999,Zabzugu District,999-ZBD,Zabzugu
+101010,Biakoye District,101010-BKD,Nkonya Wurupong
+101010,Jasikan District,101010-JSD,Jasikan
+101010,Krachi East Municipal,101010-KRE,Dambai
+101010,Krachi Nchumuru District,101010-KRN,Chinderi
+101010,Krachi West District,101010-KRW,Kete Krachi
+101010,Nkwanta North District,101010-NND,Kpassa
+101010,Nkwanta South Municipal,101010-NSM,Nkwanta
+111111,Bole District,111111-BLD,Bole
+111111,Central Gonja District,111111-CGD,Buipe
+111111,Daboya Mankarigu District,111111-DBM,Daboya
+111111,Daffiama Bussie Issa District,111111-DBI,Issa
+111111,Damongo Municipal,111111-DMM,Damongo
+111111,East Gonja Municipal,111111-EGM,Salaga
+111111,North Gonja District,111111-NGD,Buipe
+111111,Sawla Tuna Kalba District,111111-STK,Sawla
+111111,West Gonja Municipal,111111-WGM,Wa
+121212,Binduri District,121212-BDD,Binduri
+121212,Bolgatanga East District,121212-BGE,Zuarungu
+121212,Bolgatanga Municipal,121212-BGM,Bolgatanga
+121212,Bongo District,121212-BND,Bongo
+121212,Builsa North Municipal,121212-BLN,Sandema
+121212,Builsa South District,121212-BLS,Fumbisi
+121212,Garu District,121212-GRD,Garu
+121212,Kassena Nankana Municipal,121212-KNM,Navrongo
+121212,Kassena Nankana West District,121212-KNW,Paga
+121212,Nabdam District,121212-NBD,Nangodi
+121212,Pusiga District,121212-PSD,Pusiga
+121212,Talensi District,121212-TLD,Tongo
+121212,Tempane District,121212-TPD,Tempane
+131313,Daffiama Bussie Issa District,131313-DBI,Issa
+131313,Jirapa Municipal,131313-JRM,Jirapa
+131313,Lambussie Karni District,131313-LKD,Lambussie
+131313,Lawra Municipal,131313-LWM,Lawra
+131313,Nadowli Kaleo District,131313-NKD,Nadowli
+131313,Nandom Municipal,131313-NDM,Nandom
+131313,Sissala East Municipal,131313-SEM,Tumu
+131313,Sissala West District,131313-SWD,Gwollu
+131313,Wa East District,131313-WED,Funsi
+131313,Wa Municipal,131313-WAM,Wa
+131313,Wa West District,131313-WWD,Wechiau
+141414,Adaklu District,141414-ADK,Adaklu Waya
+141414,Afadjato South District,141414-AFS,Ve Golokwati
+141414,Akatsi North District,141414-AKN,Akatsi
+141414,Akatsi South District,141414-AKS,Akatsi
+141414,Anloga District,141414-ALD,Anloga
+141414,Central Tongu District,141414-CTD,Mafi Kumase
+141414,Ho Municipal,141414-HOM,Ho
+141414,Ho West District,141414-HWD,Dzolokpuita
+141414,Hohoe Municipal,141414-HHM,Hohoe
+141414,Kedjebi District,141414-KJD,Kadjebi
+141414,Keta Municipal,141414-KTM,Keta
+141414,Kpando Municipal,141414-KPM,Kpando
+141414,Nkwanta North District,141414-NKN,Kpassa
+141414,Nkwanta South Municipal,141414-NKS,Nkwanta
+141414,North Tongu District,141414-NTD,Adidome
+141414,South Tongu District,141414-STD,Sogakope
+151515,Ahanta West Municipal,151515-AWD,Agona Nkwanta
+151515,Effia Kwesimintsim Municipal,151515-EKM,Kwesimintsim
+151515,Ellembelle District,151515-ELD,Nkroful
+151515,Essikado Ketan Municipal,151515-ESK,Essikado
+151515,Jomoro Municipal,151515-JOM,Half Assini
+151515,Mpohor District,151515-MPD,Mpohor
+151515,Nzema East Municipal,151515-NZE,Axim
+151515,Prestea Huni Valley Municipal,151515-PHV,Prestea
+151515,Sekondi Takoradi Metropolitan,151515-STM,Sekondi
+151515,Shama District,151515-SHD,Shama
+151515,Takoradi Municipal,151515-TAM,Takoradi
+151515,Tarkwa Nsuaem Municipal,151515-TNM,Tarkwa
+151515,Wassa Amenfi Central District,151515-WAC,Asankrangwa
+151515,Wassa Amenfi East Municipal,151515-WAE,Wassa Akropong
+151515,Wassa Amenfi West District,151515-WAW,Manso Amenfi
+151515,Wassa East District,151515-WED,Daboase
+161616,Aowin Municipal,161616-AWM,Enchi
+161616,Bia East District,161616-BED,Essam
+161616,Bia West District,161616-BWD,Sefwi Debiso
+161616,Bibiani Anhwiaso Bekwai Municipal,161616-BAB,Bibiani
+161616,Bodi District,161616-BDD,Bodi
+161616,Juaboso District,161616-JBD,Juaboso
+161616,Sefwi Akontombra District,161616-SAD,Akontombra
+161616,Sefwi Wiawso Municipal,161616-SWM,Sefwi Wiawso
+161616,Suaman District,161616-SUD,Dadieso
