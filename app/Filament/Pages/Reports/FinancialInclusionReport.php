@@ -69,48 +69,48 @@ class FinancialInclusionReport extends Page implements HasForms
 
 
     protected function getHeaderActions(): array
-{
-    return [
-        Action::make('exportExcel')
-            ->label('Export Excel')
-            ->icon('heroicon-o-table-cells')
-            ->color('success')
-            ->action(function () {
-                $url = (new ReportExportService())->exportExcel(
-                    $this->getDistrictBreakdown(),
-                    FinancialInclusionExport::class,
-                    'financial-inclusion-report',
-                    'Financial Inclusion Report'
-                );
-                $this->redirect($url);
-            }),
+    {
+        return [
+            Action::make('exportExcel')
+                ->label('Export Excel')
+                ->icon('heroicon-o-table-cells')
+                ->color('success')
+                ->action(function () {
+                    $url = (new ReportExportService())->exportExcel(
+                        $this->getDistrictBreakdown(),
+                        FinancialInclusionExport::class,
+                        'financial-inclusion-report',
+                        'Financial Inclusion Report'
+                    );
+                    $this->js("window.open('{$url}', '_blank')");
+                }),
 
-        Action::make('exportCsv')
-            ->label('Export CSV')
-            ->icon('heroicon-o-document-text')
-            ->color('info')
-            ->action(function () {
-                $url = (new ReportExportService())->exportCsv(
-                    $this->getDistrictBreakdown(),
-                    FinancialInclusionExport::class,
-                    'financial-inclusion-report',
-                    'Financial Inclusion Report'
-                );
-                $this->redirect($url);
-            }),
+            Action::make('exportCsv')
+                ->label('Export CSV')
+                ->icon('heroicon-o-document-text')
+                ->color('info')
+                ->action(function () {
+                    $url = (new ReportExportService())->exportCsv(
+                        $this->getDistrictBreakdown(),
+                        FinancialInclusionExport::class,
+                        'financial-inclusion-report',
+                        'Financial Inclusion Report'
+                    );
+                    $this->js("window.open('{$url}', '_blank')");
+                }),
 
-        Action::make('exportPdf')
-            ->label('Export PDF')
-            ->icon('heroicon-o-document')
-            ->color('danger')
-            ->action(function () {
-                $url = (new ReportExportService())->exportFinancialInclusionPdf(
-                    $this->getDistrictBreakdown(),
-                    $this->getSummary(),
-                    'financial-inclusion-report'
-                );
-                $this->redirect($url);
-            }),
-    ];
-}
+            Action::make('exportPdf')
+                ->label('Export PDF')
+                ->icon('heroicon-o-document')
+                ->color('danger')
+                ->action(function () {
+                    $url = (new ReportExportService())->exportFinancialInclusionPdf(
+                        $this->getDistrictBreakdown(),
+                        $this->getSummary(),
+                        'financial-inclusion-report'
+                    );
+                    $this->js("window.open('{$url}', '_blank')");
+                }),
+        ];
+    }
 }

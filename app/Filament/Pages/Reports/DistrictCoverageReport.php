@@ -80,7 +80,7 @@ class DistrictCoverageReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
 
             Action::make('exportCsv')
@@ -94,7 +94,7 @@ class DistrictCoverageReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
 
             Action::make('exportPdf')
@@ -108,7 +108,7 @@ class DistrictCoverageReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
         ];
     }

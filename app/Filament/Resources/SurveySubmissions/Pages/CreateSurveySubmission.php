@@ -87,16 +87,27 @@ class CreateSurveySubmission extends CreateRecord
                             ])
                             ->required(),
 
+                        DatePicker::make('date_of_birth')
+                            ->label('Date of Birth')
+                            ->nullable()
+                            ->live()
+                            ->required()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                if ($state) {
+                                    $age = \Carbon\Carbon::parse($state)->age;
+                                    $set('age', $age);
+                                }
+                            }),
+
                         TextInput::make('age')
                             ->label('Age')
                             ->numeric()
                             ->minValue(1)
                             ->maxValue(120)
-                            ->required(),
-
-                        DatePicker::make('date_of_birth')
-                            ->label('Date of Birth (Optional)')
-                            ->nullable(),
+                            ->required()
+                            ->readOnly()
+                            ->dehydrated()
+                            ->placeholder('Auto-calculated from Date of Birth'),
 
                         Select::make('marital_status')
                             ->label('Marital Status')
@@ -122,8 +133,14 @@ class CreateSurveySubmission extends CreateRecord
                                 'phd'        => 'PhD',
                             ])
                             ->required(),
-                        TextInput::make('religion')
+                        Select::make('religion')
                             ->label('Religion')
+                            ->options([
+                                'christianity'   => 'Christianity',
+                                'islam'          => 'Islam',
+                                'traditionalist' => 'Traditionalist',
+                                'other'          => 'Other',
+                            ])
                             ->nullable(),
                         Select::make('has_disability')
                             ->label('Disability Status')
@@ -163,17 +180,67 @@ class CreateSurveySubmission extends CreateRecord
                             ->label('Household Size')
                             ->numeric()
                             ->minValue(1)
-                            ->required(),
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                $adults   = (int) $get('number_of_adults');
+                                $children = (int) $get('number_of_children');
+                                if ($adults + $children > (int) $state) {
+                                    $set('number_of_adults', 0);
+                                    $set('number_of_children', 0);
+                                }
+                            }),
+
                         TextInput::make('number_of_adults')
                             ->label('Number of Adults (18+)')
                             ->numeric()
                             ->minValue(0)
-                            ->required(),
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                $children      = (int) $get('number_of_children');
+                                $householdSize = (int) $get('household_size');
+                                $total         = (int) $state + $children;
+                                if ($householdSize > 0 && $total > $householdSize) {
+                                    $set('number_of_adults', $householdSize - $children);
+                                }
+                            })
+                            ->rule(function (callable $get) {
+                                return function (string $attribute, $value, \Closure $fail) use ($get) {
+                                    $adults        = (int) $value;
+                                    $children      = (int) $get('number_of_children');
+                                    $householdSize = (int) $get('household_size');
+                                    if ($householdSize > 0 && ($adults + $children) !== $householdSize) {
+                                        $fail("Adults + Children must equal Household Size ({$householdSize}).");
+                                    }
+                                };
+                            }),
+
                         TextInput::make('number_of_children')
                             ->label('Number of Children (<18)')
                             ->numeric()
                             ->minValue(0)
-                            ->required(),
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                $adults        = (int) $get('number_of_adults');
+                                $householdSize = (int) $get('household_size');
+                                $total         = $adults + (int) $state;
+                                if ($householdSize > 0 && $total > $householdSize) {
+                                    $set('number_of_children', $householdSize - $adults);
+                                }
+                            })
+                            ->rule(function (callable $get) {
+                                return function (string $attribute, $value, \Closure $fail) use ($get) {
+                                    $children      = (int) $value;
+                                    $adults        = (int) $get('number_of_adults');
+                                    $householdSize = (int) $get('household_size');
+                                    if ($householdSize > 0 && ($adults + $children) !== $householdSize) {
+                                        $fail("Adults + Children must equal Household Size ({$householdSize}).");
+                                    }
+                                };
+                            }),
+                            
                         Select::make('household_head_gender')
                             ->label('Household Head Gender')
                             ->options([
@@ -582,7 +649,10 @@ class CreateSurveySubmission extends CreateRecord
                                     ->nullable()->columnSpanFull(),
                                 TimePicker::make('interview_end_time')
                                     ->label('Interview End Time')
-                                    ->default(now())->required(),
+                                    ->default(now()->format('H:i:s'))
+                                    ->readOnly()
+                                    ->dehydrated()
+                                    ->placeholder('Auto-populated at submission time'),
                             ]),
                     ]),
                 ]),
@@ -596,6 +666,7 @@ class CreateSurveySubmission extends CreateRecord
         $data['enumerator_id'] = auth()->id();
         $data['status']        = 'submitted';
         $data['submitted_at']  = now();
+        $data['interview_end_time']  = now()->format('H:i:s');
 
         return $data;
     }

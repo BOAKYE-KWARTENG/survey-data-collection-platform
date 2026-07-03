@@ -7,6 +7,7 @@ use App\Models\SurveyCampaign;
 use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
 
 class EnumeratorDeploymentForm
 {
@@ -30,7 +31,34 @@ class EnumeratorDeploymentForm
                         User::role('enumerator')->pluck('name', 'id')
                     )
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->unique(table: 'users', column: 'email')
+                            ->maxLength(255),
+                        TextInput::make('password')
+                            ->password()
+                            ->required()
+                            ->minLength(8)
+                            ->dehydrateStateUsing(fn ($state) => bcrypt($state)),
+                    ])
+                    ->createOptionUsing(function (array $data): int {
+                        $user = \App\Models\User::create([
+                            'name'     => $data['name'],
+                            'email'    => $data['email'],
+                            'password' => $data['password'],
+                        ]);
+
+                        $user->assignRole('enumerator');
+
+                        return $user->id;
+                    })
+                    ->createOptionModalHeading('Create New Enumerator'),
                 Select::make('status')
                     ->options([
                         'active'   => 'Active',

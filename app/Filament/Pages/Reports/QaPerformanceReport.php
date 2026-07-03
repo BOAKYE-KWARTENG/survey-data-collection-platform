@@ -54,7 +54,7 @@ class QaPerformanceReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
 
             Action::make('exportCsv')
@@ -68,7 +68,7 @@ class QaPerformanceReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
 
             Action::make('exportPdf')
@@ -82,7 +82,7 @@ class QaPerformanceReport extends Page implements HasForms
                         'district-coverage-report',
                         'District Coverage Report'
                     );
-                    $this->redirect($url);
+                    $this->js("window.open('{$url}', '_blank')");
                 }),
         ];
     }

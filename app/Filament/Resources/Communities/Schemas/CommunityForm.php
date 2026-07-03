@@ -24,7 +24,7 @@ class CommunityForm
                 TextInput::make('code')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->maxLength(10),
+                    ->maxLength(20),
             ]);
     }
 }

@@ -8,4 +8,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCommunity extends CreateRecord
 {
     protected static string $resource = CommunityResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
+    
 }

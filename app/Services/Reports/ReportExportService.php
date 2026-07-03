@@ -36,17 +36,22 @@ class ReportExportService
     }
 
     public function exportPdf(
-        Collection $data,
-        array $headings,
-        string $filename,
-        string $title
+    Collection $data,
+    array $headings,
+    string $filename,
+    string $title
     ): string {
         $path = storage_path('app/public/exports/' . $filename . '-' . now()->format('Ymd-His') . '.pdf');
+
+        // Map each row to an ordered array matching the headings
+        $rows = $data->map(fn ($row) => array_values(
+            is_array($row) ? $row : (array) $row
+        ));
 
         Pdf::loadView('exports.report-pdf', [
             'title'    => $title,
             'headings' => $headings,
-            'rows'     => $data,
+            'rows'     => $rows,
         ])
         ->setPaper('a4', 'landscape')
         ->save($path);
