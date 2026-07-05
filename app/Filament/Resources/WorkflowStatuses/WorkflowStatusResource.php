@@ -55,4 +55,10 @@ class WorkflowStatusResource extends Resource
             'edit' => EditWorkflowStatus::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole(['admin', 'supervisor']);
+    }
+
 }

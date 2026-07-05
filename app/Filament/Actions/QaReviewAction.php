@@ -40,7 +40,7 @@ class QaReviewAction
                 $assignment = $record->latestQaAssignment;
 
                 // Create the QA review record
-                QaReview::create([
+                $review = QaReview::create([
                     'submission_id'   => $record->id,
                     'qa_assignment_id'=> $assignment->id,
                     'qa_officer_id'   => auth()->id(),
@@ -65,7 +65,6 @@ class QaReviewAction
                     $record->transitionTo($status);
                 }
 
-                // Inside the action() callback after QaReview::create()
                 event(new SubmissionReviewed($review));
 
                 if ($data['decision'] === QaReview::APPROVED) {

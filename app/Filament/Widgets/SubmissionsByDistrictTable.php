@@ -24,6 +24,16 @@ class SubmissionsByDistrictTable extends TableWidget
         return $table
             ->query(
                 District::query()
+                    ->when(
+                        auth()->user()->hasRole('enumerator'),
+                        function ($query) {
+                            // Only show districts the enumerator is deployed to
+                            $query->whereHas('enumeratorDeployments', function ($q) {
+                                $q->where('enumerator_id', auth()->id())
+                                ->where('status', 'active');
+                            });
+                        }
+                    )
                     ->withCount([
                         'households',
                         'households as submissions_count' => function (Builder $query) {
@@ -35,7 +45,6 @@ class SubmissionsByDistrictTable extends TableWidget
                             );
                         },
                     ])
-                    // ->having('households_count', '>', 0)
                     ->orderByDesc('submissions_count')
             )
             ->columns([

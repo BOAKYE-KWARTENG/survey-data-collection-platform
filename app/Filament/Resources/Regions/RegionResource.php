@@ -52,4 +52,9 @@ class RegionResource extends Resource
             'edit' => EditRegion::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole(['admin', 'supervisor']);
+    }
 }

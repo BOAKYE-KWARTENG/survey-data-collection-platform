@@ -113,4 +113,9 @@ class DistrictCoverageReport extends Page implements HasForms
         ];
     }
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole(['admin', 'supervisor']);
+    }
+
 }

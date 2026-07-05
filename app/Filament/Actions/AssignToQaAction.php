@@ -34,7 +34,7 @@ class AssignToQaAction
             ])
             ->action(function (array $data, $record): void {
                 // Create the QA assignment
-                QaAssignment::create([
+                $assignment = QaAssignment::create([
                     'submission_id' => $record->id,
                     'qa_officer_id' => $data['qa_officer_id'],
                     'assigned_by'   => auth()->id(),

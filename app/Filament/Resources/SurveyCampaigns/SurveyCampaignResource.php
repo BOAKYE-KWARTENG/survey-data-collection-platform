@@ -48,4 +48,9 @@ class SurveyCampaignResource extends Resource
             'edit' => EditSurveyCampaign::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole(['admin', 'supervisor']);
+    }
 }

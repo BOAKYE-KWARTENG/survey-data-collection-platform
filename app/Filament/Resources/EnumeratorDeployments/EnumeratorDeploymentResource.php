@@ -54,4 +54,10 @@ class EnumeratorDeploymentResource extends Resource
             'edit'   => EditEnumeratorDeployment::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole(['admin', 'supervisor']);
+    }
+
 }

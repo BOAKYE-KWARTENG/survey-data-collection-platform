@@ -57,4 +57,28 @@ class HouseholdResource extends Resource
             'edit' => EditHousehold::route('/{record}/edit'),
         ];
     }
+
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        $user = auth()->user();
+
+        if ($user->hasRole('enumerator')) {
+            return $query->where('registered_by', $user->id);
+        }
+
+        return $query;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return !auth()->user()->hasRole('enumerator');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return !auth()->user()->hasRole('enumerator');
+    }
 }

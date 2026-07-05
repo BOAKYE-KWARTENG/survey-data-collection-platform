@@ -25,5 +25,10 @@ class District extends Model
     {
         return $this->hasMany(Household::class);
     }
+
+    public function enumeratorDeployments(): HasMany
+    {
+        return $this->hasMany(EnumeratorDeployment::class);
+    }
     
 }

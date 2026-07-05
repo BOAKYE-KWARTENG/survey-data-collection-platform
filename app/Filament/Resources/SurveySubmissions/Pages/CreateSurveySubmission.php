@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Schema;
 
 
 
+use App\Models\Community;
+use App\Models\District;
 use App\Models\SurveyCampaign;
 
 
@@ -54,9 +56,77 @@ class CreateSurveySubmission extends CreateRecord
 
                         Select::make('household_id')
                             ->label('Household')
-                            ->options(Household::all()->pluck('household_code', 'id'))
+                            ->options(function () {
+                                $user = auth()->user();
+
+                                if ($user->hasRole('enumerator')) {
+                                    return Household::where('registered_by', $user->id)
+                                        ->pluck('household_code', 'id');
+                                }
+
+                                return Household::all()->pluck('household_code', 'id');
+                            })
                             ->searchable()
-                            ->required(),
+                            ->required()
+                            ->createOptionForm([
+                                Select::make('campaign_id')
+                                    ->label('Campaign')
+                                    ->options(SurveyCampaign::where('status', 'active')->pluck('name', 'id'))
+                                    ->searchable()
+                                    ->required(),
+                                Select::make('district_id')
+                                    ->label('District')
+                                    ->options(function () {
+                                        $user = auth()->user();
+
+                                        if ($user->hasRole('enumerator')) {
+                                            return District::whereHas('enumeratorDeployments', function ($q) use ($user) {
+                                                $q->where('enumerator_id', $user->id)
+                                                ->where('status', 'active');
+                                            })->pluck('name', 'id');
+                                        }
+
+                                        return District::all()->pluck('name', 'id');
+                                    })
+                                    ->searchable()
+                                    ->required()
+                                    ->live(),
+                                Select::make('community_id')
+                                    ->label('Community')
+                                    ->options(function (callable $get) {
+                                        $districtId = $get('district_id');
+                                        if (!$districtId) return [];
+                                        return Community::where('district_id', $districtId)
+                                            ->pluck('name', 'id');
+                                    })
+                                    ->searchable()
+                                    ->nullable(),
+                                TextInput::make('gps_latitude')
+                                    ->label('GPS Latitude')
+                                    ->numeric()
+                                    ->nullable(),
+                                TextInput::make('gps_longitude')
+                                    ->label('GPS Longitude')
+                                    ->numeric()
+                                    ->nullable(),
+                            ])
+                            ->createOptionUsing(function (array $data): int {
+                                $user     = auth()->user();
+                                $district = District::find($data['district_id']);
+
+                                $household = Household::create([
+                                    'campaign_id'    => $data['campaign_id'],
+                                    'district_id'    => $data['district_id'],
+                                    'community_id'   => $data['community_id'] ?? null,
+                                    'household_code' => Household::generateCode($district),
+                                    'gps_latitude'   => $data['gps_latitude'] ?? null,
+                                    'gps_longitude'  => $data['gps_longitude'] ?? null,
+                                    'registered_by'  => $user->id,
+                                ]);
+
+                                return $household->id;
+                            })
+                            ->createOptionModalHeading('Register New Household'),
 
                         TextInput::make('respondent_id')
                             ->label('Respondent ID')
