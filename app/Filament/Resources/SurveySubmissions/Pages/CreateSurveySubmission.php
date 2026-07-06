@@ -745,88 +745,91 @@ class CreateSurveySubmission extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $submission = $this->record;
-        $data       = $this->data;
 
-        // Respondent Profile
-        RespondentProfile::create([
-            'submission_id'        => $submission->id,
-            'respondent_id'        => $data['respondent_id'],
-            'interview_date'       => $data['interview_date'],
-            'interview_start_time' => $data['interview_start_time'],
-            'full_name'            => $data['full_name'] ?? null,
-            'gender'               => $data['gender'],
-            'age'                  => $data['age'],
-            'date_of_birth'        => $data['date_of_birth'] ?? null,
-            'marital_status'       => $data['marital_status'],
-            'education_level'      => $data['education_level'],
-            'religion'             => $data['religion'] ?? null,
-            'has_disability'       => $data['has_disability'] ?? false,
-            'disability_type'      => $data['disability_type'] ?? null,
-            'phone_number'         => $data['phone_number'] ?? null,
-            'alternative_phone'    => $data['alternative_phone'] ?? null,
-        ]);
+        \Illuminate\Support\Facades\DB::transaction(function () {
+            $submission = $this->record;
+            $data       = $this->data;
 
-        // Household Information
-        HouseholdInformation::create([
-            'submission_id'           => $submission->id,
-            'household_size'          => $data['household_size'],
-            'number_of_adults'        => $data['number_of_adults'],
-            'number_of_children'      => $data['number_of_children'],
-            'household_head_gender'   => $data['household_head_gender'],
-            'respondent_relationship' => $data['respondent_relationship'],
-            'residence_type'          => $data['residence_type'],
-            'drinking_water_source'   => $data['drinking_water_source'],
-            'electricity_source'      => $data['electricity_source'],
-            'has_internet_at_home'    => $data['has_internet_at_home'] ?? false,
-        ]);
+            // Respondent Profile
+            RespondentProfile::create([
+                'submission_id'        => $submission->id,
+                'respondent_id'        => RespondentProfile::generateRespondentId(),
+                'interview_date'       => $data['interview_date'],
+                'interview_start_time' => $data['interview_start_time'],
+                'full_name'            => $data['full_name'] ?? null,
+                'gender'               => $data['gender'],
+                'age'                  => $data['age'],
+                'date_of_birth'        => $data['date_of_birth'] ?? null,
+                'marital_status'       => $data['marital_status'],
+                'education_level'      => $data['education_level'],
+                'religion'             => $data['religion'] ?? null,
+                'has_disability'       => $data['has_disability'] ?? false,
+                'disability_type'      => $data['disability_type'] ?? null,
+                'phone_number'         => $data['phone_number'] ?? null,
+                'alternative_phone'    => $data['alternative_phone'] ?? null,
+            ]);
 
-        // Financial Inclusion
-        FinancialInclusion::create([
-            'submission_id'           => $submission->id,
-            'has_bank_account'        => $data['has_bank_account'] ?? false,
-            'bank_institution'        => $data['bank_institution'] ?? null,
-            'bank_account_duration'   => $data['bank_account_duration'] ?? null,
-            'has_mobile_money'        => $data['has_mobile_money'] ?? false,
-            'mobile_money_provider'   => $data['mobile_money_provider'] ?? null,
-            'mobile_money_frequency'  => $data['mobile_money_frequency'] ?? null,
-            'saves_money'             => $data['saves_money'] ?? false,
-            'savings_location'        => $data['savings_location'] ?? null,
-            'borrowed_last_12_months' => $data['borrowed_last_12_months'] ?? false,
-            'loan_source'             => $data['loan_source'] ?? null,
-            'has_insurance'           => $data['has_insurance'] ?? false,
-            'insurance_types'         => $data['insurance_types'] ?? null,
-        ]);
+            // Household Information
+            HouseholdInformation::create([
+                'submission_id'           => $submission->id,
+                'household_size'          => $data['household_size'],
+                'number_of_adults'        => $data['number_of_adults'],
+                'number_of_children'      => $data['number_of_children'],
+                'household_head_gender'   => $data['household_head_gender'],
+                'respondent_relationship' => $data['respondent_relationship'],
+                'residence_type'          => $data['residence_type'],
+                'drinking_water_source'   => $data['drinking_water_source'],
+                'electricity_source'      => $data['electricity_source'],
+                'has_internet_at_home'    => $data['has_internet_at_home'] ?? false,
+            ]);
 
-        // Digital Access
-        DigitalAccess::create([
-            'submission_id'                      => $submission->id,
-            'owns_mobile_phone'                  => $data['owns_mobile_phone'] ?? false,
-            'mobile_phone_type'                  => $data['mobile_phone_type'] ?? null,
-            'owns_computer'                      => $data['owns_computer'] ?? false,
-            'used_internet_last_3_months'        => $data['used_internet_last_3_months'] ?? false,
-            'internet_access_method'             => $data['internet_access_method'] ?? null,
-            'internet_frequency'                 => $data['internet_frequency'] ?? null,
-            'digital_skills'                     => $data['digital_skills'] ?? null,
-            'used_mobile_banking'                => $data['used_mobile_banking'] ?? false,
-            'made_online_payment_last_12_months' => $data['made_online_payment_last_12_months'] ?? false,
-            'received_money_digitally'           => $data['received_money_digitally'] ?? false,
-        ]);
+            // Financial Inclusion
+            FinancialInclusion::create([
+                'submission_id'           => $submission->id,
+                'has_bank_account'        => $data['has_bank_account'] ?? false,
+                'bank_institution'        => $data['bank_institution'] ?? null,
+                'bank_account_duration'   => $data['bank_account_duration'] ?? null,
+                'has_mobile_money'        => $data['has_mobile_money'] ?? false,
+                'mobile_money_provider'   => $data['mobile_money_provider'] ?? null,
+                'mobile_money_frequency'  => $data['mobile_money_frequency'] ?? null,
+                'saves_money'             => $data['saves_money'] ?? false,
+                'savings_location'        => $data['savings_location'] ?? null,
+                'borrowed_last_12_months' => $data['borrowed_last_12_months'] ?? false,
+                'loan_source'             => $data['loan_source'] ?? null,
+                'has_insurance'           => $data['has_insurance'] ?? false,
+                'insurance_types'         => $data['insurance_types'] ?? null,
+            ]);
 
-        // Employment Information
-        EmploymentInformation::create([
-            'submission_id'                  => $submission->id,
-            'employment_status'              => $data['employment_status'],
-            'main_occupation'                => $data['main_occupation'] ?? null,
-            'employment_sector'              => $data['employment_sector'] ?? null,
-            'owns_business'                  => $data['owns_business'] ?? false,
-            'business_registered'            => $data['business_registered'] ?? null,
-            'number_of_employees'            => $data['number_of_employees'] ?? null,
-            'main_income_source'             => $data['main_income_source'] ?? null,
-            'monthly_income_range'           => $data['monthly_income_range'],
-            'household_monthly_income_range' => $data['household_monthly_income_range'],
-            'can_meet_emergency_expense'     => $data['can_meet_emergency_expense'] ?? false,
-            'financial_confidence'           => $data['financial_confidence'],
-        ]);
+            // Digital Access
+            DigitalAccess::create([
+                'submission_id'                      => $submission->id,
+                'owns_mobile_phone'                  => $data['owns_mobile_phone'] ?? false,
+                'mobile_phone_type'                  => $data['mobile_phone_type'] ?? null,
+                'owns_computer'                      => $data['owns_computer'] ?? false,
+                'used_internet_last_3_months'        => $data['used_internet_last_3_months'] ?? false,
+                'internet_access_method'             => $data['internet_access_method'] ?? null,
+                'internet_frequency'                 => $data['internet_frequency'] ?? null,
+                'digital_skills'                     => $data['digital_skills'] ?? null,
+                'used_mobile_banking'                => $data['used_mobile_banking'] ?? false,
+                'made_online_payment_last_12_months' => $data['made_online_payment_last_12_months'] ?? false,
+                'received_money_digitally'           => $data['received_money_digitally'] ?? false,
+            ]);
+
+            // Employment Information
+            EmploymentInformation::create([
+                'submission_id'                  => $submission->id,
+                'employment_status'              => $data['employment_status'],
+                'main_occupation'                => $data['main_occupation'] ?? null,
+                'employment_sector'              => $data['employment_sector'] ?? null,
+                'owns_business'                  => $data['owns_business'] ?? false,
+                'business_registered'            => $data['business_registered'] ?? null,
+                'number_of_employees'            => $data['number_of_employees'] ?? null,
+                'main_income_source'             => $data['main_income_source'] ?? null,
+                'monthly_income_range'           => $data['monthly_income_range'],
+                'household_monthly_income_range' => $data['household_monthly_income_range'],
+                'can_meet_emergency_expense'     => $data['can_meet_emergency_expense'] ?? false,
+                'financial_confidence'           => $data['financial_confidence'],
+            ]);
+        });
     }
 }

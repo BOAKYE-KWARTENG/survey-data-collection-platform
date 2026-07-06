@@ -40,8 +40,12 @@ class RespondentProfile extends Model
     {
         $prefix = 'RES';
         $year   = now()->format('Y');
-        $count  = static::count();
-        $sequence = str_pad($count + 1, 6, '0', STR_PAD_LEFT);
+
+        $last = static::orderByDesc('id')
+            ->lockForUpdate()
+            ->value('id') ?? 0;
+
+        $sequence = str_pad($last + 1, 6, '0', STR_PAD_LEFT);
 
         return "{$prefix}-{$year}-{$sequence}";
     }

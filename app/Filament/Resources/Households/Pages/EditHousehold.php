@@ -13,7 +13,8 @@ class EditHousehold extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn () => !auth()->user()->hasRole('enumerator')),
         ];
     }
     
